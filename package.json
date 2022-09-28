@@ -7,9 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"tailwind:build": "NODE_ENV=production npx tailwindcss -i src/styles/tailwind.css -o src/styles/styles.css --minify",
-		"tailwind:dev": "npx tailwindcss -i src/styles/tailwind.css -o src/styles/styles.css --minify --watch",
-		"codegen": "rimraf src/__graphql__ && npx env-cmd -f .env.dev apollo client:codegen src/__graphql__ --target=typescript --outputFlat"
+		"codegen": "rimraf __graphql__ && npx env-cmd -f .env.local apollo client:codegen __graphql__ --target=typescript --outputFlat"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.6.9",
