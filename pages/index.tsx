@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home = ({ postCache }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
 
-  if(router.isFallback) return <Loading />
+  if (router.isFallback) return <Loading />;
 
   return (
     <div>

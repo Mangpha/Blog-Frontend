@@ -53,7 +53,7 @@ const Login = () => {
     ],
   });
 
-  if(router.isFallback) return <Loading />
+  if (router.isFallback) return <Loading />;
 
   return (
     <div className="main_section justify-center">

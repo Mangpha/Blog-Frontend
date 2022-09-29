@@ -1,18 +1,10 @@
-// .eslintrc.js
 module.exports = {
   env: {
     browser: true,
     es6: true,
     node: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'prettier',
-    'airbnb',
-  ],
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -22,12 +14,11 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
-    'prettier/prettier': 'error',
-    'react/no-unescaped-entities': 0,
+    'react/no-unescaped-entities': 'off',
   },
   settings: {
     react: {
