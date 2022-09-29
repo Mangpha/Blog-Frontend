@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"codegen": "rimraf __graphql__ && npx env-cmd -f .env.local apollo client:codegen __graphql__ --target=typescript --outputFlat"
+		"codegen": "rimraf pages/api/__graphql__ && npx env-cmd -f .env.local apollo client:codegen pages/api/__graphql__ --target=typescript --outputFlat"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.6.9",
