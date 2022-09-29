@@ -1,5 +1,4 @@
 import { useReactiveVar } from '@apollo/client';
-import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { isLoginVar } from '../apollo';
 import { useMyData } from '../hooks/useMyData';
