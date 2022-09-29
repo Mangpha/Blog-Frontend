@@ -1,13 +1,12 @@
-import { ApolloProvider } from "@apollo/client";
-import type { NextPage } from "next";
-import { client } from "../apollo";
+import type { NextPage } from 'next';
+import { Loading } from '../components/Loading';
 
 const Home: NextPage = () => {
-	return (
-		<ApolloProvider client={client}>
-			<div></div>
-		</ApolloProvider>
-	);
+  return (
+    <div>
+      <Loading />
+    </div>
+  );
 };
 
 export default Home;
