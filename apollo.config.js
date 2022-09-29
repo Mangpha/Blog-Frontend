@@ -3,7 +3,6 @@ module.exports = {
 		includes: [
 			"./pages/**/*.{js,ts,jsx,tsx}",
 			"./components/**/*.{js,ts,jsx,tsx}",
-			"./gql.ts",
 		],
 		tagName: "gql",
 		service: {
