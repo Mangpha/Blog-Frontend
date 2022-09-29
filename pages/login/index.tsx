@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { authTokenVar, isLoginVar } from '../../apollo';
 import { Button } from '../../components/Button';
 import { ErrorMessage } from '../../components/ErrorMessage';
+import { Loading } from '../../components/Loading';
 import { SEO } from '../../components/SEO';
 import { LOCALSTORAGE_TOKEN } from '../../constants';
 import { LOGIN_MUTATION, MY_DATA_QUERY } from '../api/gql';
@@ -51,6 +52,8 @@ const Login = () => {
       },
     ],
   });
+
+  if(router.isFallback) return <Loading />
 
   return (
     <div className="main_section justify-center">
