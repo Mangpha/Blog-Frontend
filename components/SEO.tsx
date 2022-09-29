@@ -2,15 +2,15 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 
 interface ISEOProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 }
 
 export const SEO: NextPage<ISEOProps> = ({ title, description }) => {
   return (
     <Head>
       <meta name="title" content={title || 'Mangpha' + ' | Dev Blog'} />
-      <meta name="description" content={description} />
+      <meta name="description" content={description || 'Mangpha Dev Blog'} />
       <meta name="keywords" content="Dev Blog, Typescript, NestJS, Javascript" />
       <meta name="robots" content="index, follow" />
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />

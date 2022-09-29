@@ -6,7 +6,8 @@ import { Header } from '../components/Header';
 import { TopButton } from '../components/TopButton';
 import '../styles/global.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, ...props }: AppProps) {
+  console.log(props);
   return (
     <>
       <Script src="https://kit.fontawesome.com/7e5e711513.js" crossOrigin="anonymous"></Script>
