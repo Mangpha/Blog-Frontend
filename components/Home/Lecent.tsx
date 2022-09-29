@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { FindPostsQuery } from '../../pages/api/__graphql__/FindPostsQuery';
 import { PostsList } from '../Blog/PostsList';
-// import { PostsList } from '../Blog/PostsList';
 
 interface ILecentProps {
   data: FindPostsQuery;
