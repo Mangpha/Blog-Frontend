@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const useDarkSide = (): [string, React.Dispatch<React.SetStateAction<string>>] => {
-  const [theme, setTheme] = React.useState<string>(localStorage.theme);
+  const [theme, setTheme] = React.useState<string>(typeof window !== 'undefined' ? window.localStorage.theme : undefined);
   const colorTheme = theme === 'dark' ? 'light' : 'dark';
 
   React.useEffect(() => {

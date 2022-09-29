@@ -10,7 +10,7 @@ class MyDocument extends Document {
           <Script src="https://kit.fontawesome.com/7e5e711513.js" crossOrigin="anonymous"></Script>
           <meta name="theme-color" content="#000000" />
         </Head>
-        <body>
+        <body className="scroll-smooth base transition-all duration-300 flex flex-col">
           <Main />
           <NextScript />
         </body>
