@@ -11,6 +11,7 @@ import '../styles/global.css';
 import 'nprogress/nprogress.css';
 import './app.css';
 import { FullScreenLoading } from '../components/FullScreenLoading';
+import { Footer } from '../components/Footer';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState<boolean>(false);
@@ -44,6 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Header />
         <TopButton />
         <Component {...pageProps} />
+        <Footer />
       </ApolloProvider>
     </>
   );
