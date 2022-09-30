@@ -1,15 +1,8 @@
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { Project } from '../../components/Project/Project';
 import { SEO } from '../../components/SEO';
 import { projectsData } from '../../data/projectData';
 
-export const getStaticProps: GetStaticProps = () => {
-  return {
-    props: { projectsData },
-  };
-};
-
-const Projects = ({ projectData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Projects = () => {
   return (
     <div className="section h-full min-h-screen">
       <SEO title="Projects" />

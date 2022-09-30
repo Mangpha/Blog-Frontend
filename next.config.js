@@ -1,7 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-	reactStrictMode: false,
-	swcMinify: true,
-};
+const withTM = require('next-transpile-modules')(['react-syntax-highlighter']); // pass the modules you would like to see transpiled
 
-module.exports = nextConfig;
+module.exports = withTM({
+  webpack: (config) => {
+    config.experiments = {
+      topLevelAwait: true,
+    };
+    return config;
+  },
+});

@@ -9,6 +9,7 @@ interface ISEOProps {
 export const SEO: NextPage<ISEOProps> = ({ title, description }) => {
   return (
     <Head>
+      <title>{(title || 'Mangpha') + '  |  Dev Blog'}</title>
       <meta name="title" content={title || 'Mangpha' + ' | Dev Blog'} />
       <meta name="description" content={description || 'Mangpha Dev Blog'} />
       <meta name="keywords" content="Dev Blog, Typescript, NestJS, Javascript" />

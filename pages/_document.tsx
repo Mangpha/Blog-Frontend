@@ -7,7 +7,6 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta name="theme-color" content="#000000" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <body className="scroll-smooth base transition-all duration-300 flex flex-col">
           <Main />
