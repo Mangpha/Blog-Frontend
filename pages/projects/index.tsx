@@ -1,8 +1,17 @@
+import { GetStaticProps } from 'next';
 import { Project } from '../../components/Project/Project';
 import { SEO } from '../../components/SEO';
-import { projectsData } from '../../data/projectData';
+import { IProjectProps, projectsData } from '../../data/projectData';
 
-const Projects = () => {
+export const getStaticProps: GetStaticProps = () => {
+  return {
+    props: {
+      projectsData,
+    },
+  };
+};
+
+const Projects = ({ projectsData }: { projectsData: IProjectProps[] }) => {
   return (
     <div className="section h-full min-h-screen">
       <SEO title="Projects" />

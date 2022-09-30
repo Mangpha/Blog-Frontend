@@ -1,12 +1,10 @@
 import { useQuery } from '@apollo/client';
 import { GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
 import React from 'react';
 import { client } from '../../apollo';
 import { Category } from '../../components/Blog/Category';
 import { Pagination } from '../../components/Blog/Pagination';
 import { PostsList } from '../../components/Blog/PostsList';
-import { Loading } from '../../components/Loading';
 import { SEO } from '../../components/SEO';
 import { FIND_ALL_CATEGORY_QUERY, FIND_POSTS_QUERY } from '../api/gql';
 import { FindAllCategoryQuery } from '../api/__graphql__/FindAllCategoryQuery';
@@ -33,10 +31,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Blog = ({ postCache, categoryCache }: { postCache: FindPostsQuery; categoryCache: FindAllCategoryQuery }) => {
   const [page, setPage] = React.useState<number>(1);
-  const router = useRouter();
   const onNext = () => setPage(() => page + 1);
   const onPrev = () => setPage(() => page - 1);
-  const { data: postData, loading: postLoading } = useQuery<FindPostsQuery, FindPostsQueryVariables>(FIND_POSTS_QUERY, {
+  const { data: postData } = useQuery<FindPostsQuery, FindPostsQueryVariables>(FIND_POSTS_QUERY, {
     variables: {
       input: {
         page,
@@ -44,13 +41,6 @@ const Blog = ({ postCache, categoryCache }: { postCache: FindPostsQuery; categor
     },
   });
   const { data: categoryData } = useQuery<FindAllCategoryQuery>(FIND_ALL_CATEGORY_QUERY);
-
-  if (router.isFallback || postLoading)
-    return (
-      <div>
-        <Loading />
-      </div>
-    );
 
   return (
     <div className="h-full min-h-screen">
