@@ -8,13 +8,10 @@ import { Loading } from '../../components/Loading';
 import { MarkDownView } from '../../components/Blog/MarkDownView';
 import { useRouter } from 'next/router';
 import { CreatePostMutation, CreatePostMutationVariables } from '../api/__graphql__/CreatePostMutation';
-import { CREATE_POST_MUTATION, FIND_ALL_CATEGORY_QUERY, FIND_POSTS_QUERY, MY_DATA_QUERY } from '../api/gql';
+import { CREATE_POST_MUTATION, FIND_ALL_CATEGORY_QUERY, FIND_POSTS_QUERY } from '../api/gql';
 import { FindAllCategoryQuery } from '../api/__graphql__/FindAllCategoryQuery';
 import { SEO } from '../../components/SEO';
-import { GetServerSideProps } from 'next';
-import { client } from '../../apollo';
-import { MyDataQuery } from '../api/__graphql__/MyDataQuery';
-import { UserRoles } from '../api/__graphql__/globalTypes';
+import { useAdmin } from '../../hooks/useAdmin';
 
 interface IPostProps {
   title: string;
@@ -22,37 +19,10 @@ interface IPostProps {
   category?: string;
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    const { data: myData } = await client.query<MyDataQuery>({
-      query: MY_DATA_QUERY,
-    });
-    console.log(myData.myData.role);
-    if (myData.myData.role !== UserRoles.Admin) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/404',
-        },
-      };
-    }
-  } catch {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/404',
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-};
-
 const CreatePost = () => {
   const router = useRouter();
-  if (router.isFallback)
+  const checkAdmin = useAdmin({ redirect: '/blog' });
+  if (!checkAdmin)
     return (
       <>
         <Loading />
