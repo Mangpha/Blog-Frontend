@@ -24,7 +24,9 @@ export const Category: React.FC<ICategoryProps> = ({ data, selectId }) => {
         <></>
       )}
       <Link href={`/blog`}>
-        <a className={`inline-block text-2xl font-bold py-3 px-4 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white transition-colors`}>
+        <a
+          className={`inline-block text-2xl mb-5 font-bold py-3 px-4 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white transition-colors`}
+        >
           All Posts
         </a>
       </Link>
