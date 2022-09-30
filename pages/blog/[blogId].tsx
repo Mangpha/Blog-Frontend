@@ -3,18 +3,24 @@ import dayjs from 'dayjs';
 import { DiscussionEmbed } from 'disqus-react';
 import { useRouter } from 'next/router';
 import { SEO } from '../../components/SEO';
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { FindPostByIdQuery, FindPostByIdQueryVariables } from '../api/__graphql__/FindPostByIdQuery';
 import { client } from '../../apollo';
 import { FIND_POSTS_QUERY, FIND_POST_BY_ID } from '../api/gql';
 import { FindPostsQuery, FindPostsQueryVariables } from '../api/__graphql__/FindPostsQuery';
+import { ParsedUrlQuery } from 'querystring';
 
-export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
+interface IParams extends ParsedUrlQuery {
+  blogId: string;
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { blogId } = context.params as IParams;
   const { data } = await client.query<FindPostByIdQuery, FindPostByIdQueryVariables>({
     query: FIND_POST_BY_ID,
     variables: {
       input: {
-        id: Number(context.params?.id),
+        id: Number(blogId),
       },
     },
   });
@@ -34,14 +40,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   } = await client.query<FindPostsQuery, FindPostsQueryVariables>({
     query: FIND_POSTS_QUERY,
     variables: {
-      input: {
-        take: 50,
-      },
+      input: {},
     },
   });
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const paths = posts!.map((post) => ({
-    params: { id: post.id.toString() },
+    params: { blogId: post.id.toString() },
   }));
 
   return {
