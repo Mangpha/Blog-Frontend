@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { client } from '../../apollo';
@@ -12,7 +12,7 @@ import { FIND_ALL_CATEGORY_QUERY, FIND_POSTS_QUERY } from '../api/gql';
 import { FindAllCategoryQuery } from '../api/__graphql__/FindAllCategoryQuery';
 import { FindPostsQuery, FindPostsQueryVariables } from '../api/__graphql__/FindPostsQuery';
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const { data: postCache } = await client.query<FindPostsQuery, FindPostsQueryVariables>({
     query: FIND_POSTS_QUERY,
     variables: {
