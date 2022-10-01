@@ -1,7 +1,7 @@
 import { AdminContainer } from '../../components/Admin/AdminContainer';
 
 const Admin = () => {
-  return <AdminContainer></AdminContainer>;
+  return <AdminContainer>{/* DashBoard */}</AdminContainer>;
 };
 
 export default Admin;
