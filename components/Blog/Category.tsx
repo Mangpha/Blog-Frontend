@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMyData } from '../../hooks/useMyData';
 import { FindAllCategoryQuery } from '../../pages/api/__graphql__/FindAllCategoryQuery';
 import { UserRoles } from '../../pages/api/__graphql__/globalTypes';
@@ -13,10 +13,16 @@ interface ICategoryProps {
 export const Category: React.FC<ICategoryProps> = ({ data, selectId }) => {
   const { data: userData } = useMyData();
   const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (userData?.myData.role === UserRoles.Admin) setIsAdmin(true);
+    else setIsAdmin(false);
+  }, [userData]);
 
   return (
     <div className="flex flex-col text-lg font-medium text-center text-gray-500 dark:text-gray-400">
-      {userData?.myData.role === UserRoles.Admin ? (
+      {isAdmin ? (
         <button onClick={() => router.push('/blog/create_post')} className="px-5 py-2 bg-sky-400 dark:bg-sky-300 rounded dark:text-black mb-10">
           Create Post
         </button>
