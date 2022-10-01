@@ -112,7 +112,8 @@ const EditPost = () => {
 
   React.useEffect(() => {
     if (!checkAdmin.admin) router.push('/blog');
-    if (!postData?.findPostById.post) {
+    if (postData && !postData?.findPostById.post) {
+      alert('Error');
       router.back();
     }
     setValue('title', postData?.findPostById.post?.title || '');
