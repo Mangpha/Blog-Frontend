@@ -1,8 +1,8 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
 import { AdminContainer } from '../../../components/Admin/AdminContainer';
-import { AdminPostsList } from '../../../components/Admin/AdminPostsList';
-import { AdminPostPagination } from '../../../components/Admin/AdminPostsPagination';
+import { AdminPostsList } from '../../../components/Admin/postPanel/AdminPostsList';
+import { AdminPostPagination } from '../../../components/Admin/postPanel/AdminPostsPagination';
 import { Loading } from '../../../components/Loading';
 import { ADMIN_FIND_ALL_POSTS } from '../../api/gql';
 import { AdminFindAllPosts, AdminFindAllPostsVariables } from '../../api/__graphql__/AdminFindAllPosts';

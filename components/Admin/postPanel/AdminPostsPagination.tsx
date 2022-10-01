@@ -1,4 +1,4 @@
-import React from 'react';
+import { NextPage } from 'next';
 
 interface IAdminPostPaginationProps {
   page: number;
@@ -7,7 +7,7 @@ interface IAdminPostPaginationProps {
   onNext: () => void;
 }
 
-export const AdminPostPagination: React.FC<IAdminPostPaginationProps> = ({ page, totalPages, onPrev, onNext }) => {
+export const AdminPostPagination: NextPage<IAdminPostPaginationProps> = ({ page, totalPages, onPrev, onNext }) => {
   return (
     <div className="flex flex-col items-center py-5">
       <span className="text-sm text-gray-700 dark:text-gray-400">
