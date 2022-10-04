@@ -1,10 +1,12 @@
 import { useReactiveVar } from '@apollo/client';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import React from 'react';
 import { isLoginVar } from '../apollo';
 import { useMyData } from '../hooks/useMyData';
 import { UserRoles } from '../pages/api/__graphql__/globalTypes';
-import { Switcher } from './Switcher';
+
+const Switcher = dynamic(() => import('./Switcher'), { ssr: false });
 
 export const Header = () => {
   const isLogin = useReactiveVar(isLoginVar);
