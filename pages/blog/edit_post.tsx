@@ -4,7 +4,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { AddCategory } from '../../components/Blog/AddCategory';
-import { MarkDownView } from '../../components/Blog/MarkDownView';
+import MarkDownView from '../../components/Blog/MarkDownView';
 import { Button } from '../../components/Button';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { Loading } from '../../components/Loading';

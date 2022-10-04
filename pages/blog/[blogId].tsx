@@ -1,4 +1,3 @@
-import { MarkDownView } from '../../components/Blog/MarkDownView';
 import dayjs from 'dayjs';
 import { DiscussionEmbed } from 'disqus-react';
 import { useRouter } from 'next/router';
@@ -9,6 +8,7 @@ import { client } from '../../apollo';
 import { FIND_POSTS_QUERY, FIND_POST_BY_ID } from '../api/gql';
 import { FindPostsQuery, FindPostsQueryVariables } from '../api/__graphql__/FindPostsQuery';
 import { ParsedUrlQuery } from 'querystring';
+import MarkDownView from '../../components/Blog/MarkDownView';
 
 interface IParams extends ParsedUrlQuery {
   blogId: string;

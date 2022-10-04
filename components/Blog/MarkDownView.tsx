@@ -12,7 +12,7 @@ interface MarkDownViewProps {
   content: string;
 }
 
-export const MarkDownView: React.FC<MarkDownViewProps> = ({ content }) => {
+const MarkDownView: React.FC<MarkDownViewProps> = ({ content }) => {
   return (
     <div className="pt-10 px-8 prose min-w-full">
       <ReactMarkdown
@@ -52,3 +52,5 @@ export const MarkDownView: React.FC<MarkDownViewProps> = ({ content }) => {
     </div>
   );
 };
+
+export default MarkDownView;

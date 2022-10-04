@@ -5,13 +5,13 @@ import { AddCategory } from '../../components/Blog/AddCategory';
 import { Button } from '../../components/Button';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { Loading } from '../../components/Loading';
-import { MarkDownView } from '../../components/Blog/MarkDownView';
 import { useRouter } from 'next/router';
 import { CreatePostMutation, CreatePostMutationVariables } from '../api/__graphql__/CreatePostMutation';
 import { CREATE_POST_MUTATION, FIND_ALL_CATEGORY_QUERY, FIND_POSTS_QUERY } from '../api/gql';
 import { FindAllCategoryQuery } from '../api/__graphql__/FindAllCategoryQuery';
 import { SEO } from '../../components/SEO';
 import { useAdmin } from '../../hooks/useAdmin';
+import MarkDownView from '../../components/Blog/MarkDownView';
 
 interface IPostProps {
   title: string;
