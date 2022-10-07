@@ -7,7 +7,7 @@ const blogDomain = 'https://mangpha.dev';
 
 const formatted = (sitemap) => prettier.format(sitemap, { parser: 'html' });
 
-async () => {
+(async () => {
   const pages = await globby([
     // include
     '../pages/**/*.tsx',
@@ -55,4 +55,4 @@ async () => {
   const formattedSitemap = [formatted(generatedSitemap)];
 
   fs.writeFileSync('../public/sitemap/sitemap-common.xml', formattedSitemap, 'utf8');
-};
+})();
