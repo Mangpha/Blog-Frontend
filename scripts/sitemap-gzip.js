@@ -1,14 +1,14 @@
-import zlib from 'zlib';
-import fs from 'fs';
+import { createGzip } from 'zlib';
+import { readdirSync, createReadStream, createWriteStream } from 'fs';
 
 const dirs = ['../public/sitemap'];
 
 dirs.forEach((dir) => {
-  fs.readdirSync(dir).forEach((file) => {
+  readdirSync(dir).forEach((file) => {
     if (file.endsWith('.xml') && file !== 'sitemap.xml') {
-      const fileContents = fs.createReadStream(dir + '/' + file);
-      const writeStream = fs.createWriteStream(dir + '/' + file + '.gz');
-      const zip = zlib.createGzip();
+      const fileContents = createReadStream(dir + '/' + file);
+      const writeStream = createWriteStream(dir + '/' + file + '.gz');
+      const zip = createGzip();
 
       fileContents
         .pipe(zip)

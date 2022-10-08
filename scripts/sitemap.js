@@ -1,11 +1,11 @@
-import fs from 'fs';
-import globby from 'globby';
-import prettier from 'prettier';
+import { writeFileSync } from 'fs';
+import { globby } from 'globby';
+import { format } from 'prettier';
 
 const getDate = new Date().toISOString();
 const blogDomain = 'https://mangpha.dev';
 
-const formatted = (sitemap) => prettier.format(sitemap, { parser: 'html' });
+const formatted = (sitemap) => format(sitemap, { parser: 'html' });
 
 (async () => {
   const pages = await globby(['../public/sitemap/*.gz']);
@@ -32,5 +32,5 @@ const formatted = (sitemap) => prettier.format(sitemap, { parser: 'html' });
   `;
 
   const formattedSitemap = [formatted(sitemap)];
-  fs.writeFileSync('../public/sitemap.xml', formattedSitemap, 'utf8');
+  writeFileSync('../public/sitemap.xml', formattedSitemap, 'utf8');
 })();

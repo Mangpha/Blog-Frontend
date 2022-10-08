@@ -1,12 +1,12 @@
-import fs from 'fs';
-import prettier from 'prettier';
+import { writeFileSync } from 'fs';
+import { format } from 'prettier';
 import { client } from '../apollo';
 import { FIND_POSTS_QUERY } from '../pages/api/gql';
 
 const getDate = new Date().toISOString();
 const blogDomain = 'https://mangpha.dev';
 
-const formatted = (sitemap) => prettier.format(sitemap, { parser: 'html' });
+const formatted = (sitemap) => format(sitemap, { parser: 'html' });
 
 (async () => {
   let response = [];
@@ -53,5 +53,5 @@ const formatted = (sitemap) => prettier.format(sitemap, { parser: 'html' });
 
   const formattedSitemap = [formatted(generatedSitemap)];
 
-  fs.writeFileSync('../public/sitemap/sitemap-posts.xml', formattedSitemap, 'utf8');
+  writeFileSync('../public/sitemap/sitemap-posts.xml', formattedSitemap, 'utf8');
 })();
