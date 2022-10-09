@@ -1,7 +1,7 @@
-import { writeFileSync } from 'fs';
+import * as fs from 'fs';
 
 const generatedSitemap = `User-agent: *
 Disallow: /[MY_ADMIN_PAGE_DIR]*/
 `;
 
-writeFileSync('../public/robots.txt', generatedSitemap, 'utf8');
+fs.writeFileSync('../public/robots.txt', generatedSitemap, 'utf8');
