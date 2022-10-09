@@ -1,5 +1,10 @@
 # generate-sitemap.sh
 
+while read line;
+do
+  export $line;
+done < .env.local
+
 cd public
 
 rm -rf sitemap

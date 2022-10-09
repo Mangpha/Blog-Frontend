@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs';
+import * as fs from 'fs';
 import { globby } from 'globby';
 import { format } from 'prettier';
 
@@ -31,6 +31,6 @@ const formatted = (sitemap) => format(sitemap, { parser: 'html' });
     </sitemapindex>
   `;
 
-  const formattedSitemap = [formatted(sitemap)];
-  writeFileSync('../public/sitemap.xml', formattedSitemap, 'utf8');
+  const formattedSitemap = [formatted(sitemap)].join('');
+  fs.writeFileSync('../public/sitemap.xml', formattedSitemap, 'utf8');
 })();

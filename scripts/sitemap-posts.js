@@ -1,39 +1,48 @@
-import { writeFileSync } from 'fs';
-import { format } from 'prettier';
-import { client } from '../apollo';
-import { FIND_POSTS_QUERY } from '../pages/api/gql';
+import * as fs from 'fs';
+import * as prettier from 'prettier';
+import axios from 'axios';
 
-const getDate = new Date().toISOString();
 const blogDomain = 'https://mangpha.dev';
 
-const formatted = (sitemap) => format(sitemap, { parser: 'html' });
+const formatted = (sitemap) => prettier.format(sitemap, { parser: 'html' });
 
 (async () => {
   let response = [];
-  try {
-    const {
-      data: { findAllPosts },
-    } = await client.query(FIND_POSTS_QUERY, {
-      query: FIND_POSTS_QUERY,
-      variables: {
-        input: {
-          take: 10000,
-        },
-      },
+
+  await axios({
+    url: process.env.NEXT_PUBLIC_END_POINT,
+    method: 'post',
+    headers: {
+      'content-type': 'application/json',
+    },
+    data: {
+      query: `query FindPostsQuery {
+      findAllPosts(input: { take: 10000 }) {
+        posts {
+          id
+          title
+          updatedAt
+        }
+      }
+    }`,
+    },
+  })
+    .then((res) => {
+      response = res.data.data.findAllPosts.posts;
+    })
+    .catch((err) => {
+      console.log(err.response.data);
     });
-    response = findAllPosts.posts;
-  } catch (error) {
-    console.log(error);
-  }
+
   const postList = [];
-  response.forEach((post) => postList.push({ id: post.id, title: post.title }));
+  response.forEach((post) => postList.push({ id: post.id, title: post.title, updatedAt: post.updatedAt }));
   const postListSitemap = `
     ${postList
       .map((post) => {
         return `
         <url>
           <loc>${`${blogDomain}/blog/${post.id}`}</loc>
-          <lastmod>${getDate}</lastmod>
+          <lastmod>${post.updatedAt}</lastmod>
         </url>
       `;
       })
@@ -51,7 +60,7 @@ const formatted = (sitemap) => format(sitemap, { parser: 'html' });
     </urlset>
   `;
 
-  const formattedSitemap = [formatted(generatedSitemap)];
+  const formattedSitemap = [formatted(generatedSitemap)].join('');
 
-  writeFileSync('../public/sitemap/sitemap-posts.xml', formattedSitemap, 'utf8');
+  fs.writeFileSync('../public/sitemap/sitemap-posts.xml', formattedSitemap, 'utf8');
 })();
