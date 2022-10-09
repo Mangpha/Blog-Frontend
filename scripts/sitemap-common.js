@@ -1,14 +1,14 @@
-import { writeFileSync } from 'fs';
-import { globby } from 'globby';
-import { format } from 'prettier';
+import * as fs from 'fs';
+import * as globby from 'globby';
+import * as prettier from 'prettier';
 
 const getDate = new Date().toISOString();
 const blogDomain = 'https://mangpha.dev';
 
-const formatted = (sitemap) => format(sitemap, { parser: 'html' });
+const formatted = (sitemap) => prettier.format(sitemap, { parser: 'html' });
 
 (async () => {
-  const pages = await globby([
+  const pages = await globby.globby([
     // include
     '../pages/**/*.tsx',
     '../pages/*.tsx',
@@ -16,6 +16,8 @@ const formatted = (sitemap) => format(sitemap, { parser: 'html' });
     '!../pages/_app.tsx',
     '!../pages/_document.tsx',
     '!../pages/_error.tsx', // 추가 예정
+    '!../pages/blog/create_post.tsx',
+    '!../pages/blog/edit_post.tsx',
     '!../pages/admin/**/*.tsx',
     '!../pages/admin/*.tsx',
     '!../pages/api/**/*.tsx',
@@ -52,7 +54,7 @@ const formatted = (sitemap) => format(sitemap, { parser: 'html' });
         </urlset>
   `;
 
-  const formattedSitemap = [formatted(generatedSitemap)];
+  const formattedSitemap = [formatted(generatedSitemap)].join('');
 
-  writeFileSync('../public/sitemap/sitemap-common.xml', formattedSitemap, 'utf8');
+  fs.writeFileSync('../public/sitemap/sitemap-common.xml', formattedSitemap, 'utf8');
 })();
