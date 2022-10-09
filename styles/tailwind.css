@@ -6,7 +6,7 @@
 
 @tailwind components;
 .base {
-  @apply bg-white dark:bg-black font-nanum dark:text-white;
+  @apply bg-white dark:bg-black dark:text-white font-nanum;
 }
 
 .header_container {

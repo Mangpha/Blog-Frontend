@@ -1,2 +1,0 @@
-User-agent: *
-Disallow: /[MY_ADMIN_PAGE_DIR]*/

@@ -13,8 +13,8 @@ mkdir sitemap
 cd ..
 cd scripts
 
-node ./robots.js
-node ./sitemap-common.js
-node ./sitemap-posts.js
-node ./sitemap-gzip.js
-node ./sitemap.js
+node ./robots.mjs
+node ./sitemap-common.mjs
+node ./sitemap-posts.mjs
+node ./sitemap-gzip.mjs
+node ./sitemap.mjs
