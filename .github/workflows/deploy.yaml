@@ -1,0 +1,93 @@
+name: Blog Front-End deployment
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: CI pipeline
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: ['16.15.0']
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Cache node modules
+        id: node-cache
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+
+      - name: Install Dependencies
+        if: steps.node-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Run build
+        run: npm run build
+
+  deploy:
+    name: CD pipeline
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        node-version: ['16.15.0']
+
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create .npmrc
+        run: |
+          echo "unsafe-perm=true" > .npmrc
+          cat .npmrc
+
+      - name: Create env file
+        run: |
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env.local
+          cat .env.local
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate Sitemap
+        run: npm run sitemap
+
+      - name: Run build
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.DEPLOY_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.DEPLOY_SECRET_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: aws s3 sync ./${{ secrets.BUILD_DIRECTORY }} ${{ secrets.AWS_S3_BUCKET_NAME }} --acl public-read --delete
+
+      - name: CloudFront Invalidate Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
