@@ -22,15 +22,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
       },
     });
 
-    return data
-      ? {
-          props: {
-            data,
-          },
-        }
-      : {
-          notFound: true,
-        };
+    if (data.findPostById.post === null) return { notFound: true };
+
+    return {
+      props: {
+        data,
+      },
+      revalidate: 10,
+    };
   } catch (e) {
     console.log(e);
     return { notFound: true };
@@ -59,21 +58,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
 const Blog = ({ data }: { data: FindPostByIdQuery }) => {
   return (
-    data && (
-      <Post
-        id={data.findPostById.post?.id}
-        title={data.findPostById.post?.title}
-        content={data.findPostById.post?.content}
-        category={data.findPostById.post?.category}
-        createdAt={data.findPostById.post?.createdAt}
-      />
-    )
+    <Post
+      id={data.findPostById.post?.id}
+      title={data.findPostById.post?.title}
+      content={data.findPostById.post?.content}
+      category={data.findPostById.post?.category}
+      createdAt={data.findPostById.post?.createdAt}
+    />
   );
 };
 
