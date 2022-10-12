@@ -37,6 +37,13 @@ jobs:
         if: steps.node-cache.outputs.cache-hit != 'true'
         run: npm i
 
+      - name: Create env file
+        run: |
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env.local
+          cat .env.local
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+
       - name: Run build
         run: npm run build
 
