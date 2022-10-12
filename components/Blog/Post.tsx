@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
-import { DiscussionEmbed } from 'disqus-react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { FindPostByIdQuery_findPostById_post } from '../../pages/api/__graphql__/FindPostByIdQuery';
 import { SEO } from '../SEO';
+import Comment from './Comments';
 import MarkDownView from './MarkDownView';
 
-const Post: NextPage<Partial<FindPostByIdQuery_findPostById_post>> = ({ id, title, category, createdAt, content }) => {
+const Post: NextPage<Partial<FindPostByIdQuery_findPostById_post>> = ({ title, category, createdAt, content }) => {
   const router = useRouter();
 
   return (
@@ -28,18 +28,9 @@ const Post: NextPage<Partial<FindPostByIdQuery_findPostById_post>> = ({ id, titl
           </div>
           <MarkDownView content={content || ''} />
         </div>
-        <div className="section container_small text-black dark:text-white">
-          <DiscussionEmbed
-            shortname="mangpha-com"
-            config={{
-              language: 'ko',
-              url: 'https://mangpha.dev',
-              identifier: id?.toString(),
-              title,
-            }}
-          />
-        </div>
       </div>
+      <hr className="h-px bg-gray-300 border-0 dark:bg-gray-700" />
+      <Comment />
     </div>
   );
 };

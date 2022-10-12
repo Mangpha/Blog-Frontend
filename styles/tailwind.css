@@ -80,3 +80,11 @@
   z-index: 100;
   transition: 0.4s cubic-bezier(0.75, 0.25, 0.25, 0.75);
 }
+
+.light .utterance-dark {
+  display: none;
+}
+
+.dark .utterance-light {
+  display: none;
+}
