@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run tailwind:build && next build && next export",
+    "build": "npm run tailwind:build && next build",
     "start": "next start",
     "lint": "next lint",
     "codegen": "rimraf pages/api/__graphql__ && npx env-cmd -f .env.local apollo client:codegen pages/api/__graphql__ --target=typescript --outputFlat",

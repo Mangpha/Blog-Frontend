@@ -42,12 +42,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const { data: categoryData } = await client.query<FindAllCategoryQuery>({
     query: FIND_ALL_CATEGORY_QUERY,
   });
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
   const paths = categoryData.findAllCategories.categories!.map((category) => ({
     params: {
       categoryId: category.id.toString(),
     },
-  }));
+  })) || { params: [] };
 
   return {
     paths,
