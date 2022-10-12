@@ -30,11 +30,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
     query: FIND_ALL_CATEGORY_QUERY,
   });
 
+  if (categoryData.findAllCategories.categories === null) return { notFound: true };
+
   return {
     props: {
       postData,
       categoryData,
     },
+    revalidate: 60,
   };
 };
 
@@ -43,15 +46,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
     query: FIND_ALL_CATEGORY_QUERY,
   });
 
-  const paths = categoryData.findAllCategories.categories!.map((category) => ({
-    params: {
-      categoryId: category.id.toString(),
-    },
-  })) || { params: [] };
+  const paths = categoryData.findAllCategories.categories
+    ? categoryData.findAllCategories.categories.map((category) => ({
+        params: {
+          categoryId: category.id.toString(),
+        },
+      }))
+    : [];
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
