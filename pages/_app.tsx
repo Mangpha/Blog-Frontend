@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { client } from '../apollo';
 import { Header } from '../components/Header';
 import { TopButton } from '../components/TopButton';
-import '../styles/global.css';
+import './global.css';
 import 'nprogress/nprogress.css';
 import './app.css';
 import { FullScreenLoading } from '../components/FullScreenLoading';
