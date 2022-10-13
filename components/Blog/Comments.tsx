@@ -1,6 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
-import { useDarkSide } from '../../hooks/useDarkSide';
-
 const Comment = () => {
   return (
     <>
