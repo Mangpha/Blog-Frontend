@@ -94,7 +94,15 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy to S3
-        run: aws s3 sync ./${{ secrets.BUILD_DIRECTORY }} ${{ secrets.AWS_S3_BUCKET_NAME }} --acl public-read --delete
+        run: aws s3 sync ./${{ secrets.BUILD_DIRECTORY }} ${{ secrets.AWS_S3_BUCKET_NAME }} --acl bucket-owner-full-control
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.DEPLOY_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.DEPLOY_SECRET_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
 
       - name: CloudFront Invalidate Cache
-        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
+        uses: chetan/invalidate-cloudfront-action@master
+        env:
+          AWS_DISTRIBUTION: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
+          PATHS: '/index.html'
+        continue-on-error: true
