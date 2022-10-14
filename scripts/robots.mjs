@@ -1,9 +1,7 @@
 import * as fs from 'fs';
 
 const generatedSitemap = `User-agent: *
-Disallow: /admin
-Disallow: /login
-Allow: /
+Disallow: /[MY_ADMIN_PAGE_DIR]*/
 `;
 
 fs.writeFileSync('../public/robots.txt', generatedSitemap, 'utf8');
