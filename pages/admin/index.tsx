@@ -1,7 +1,12 @@
-import { AdminContainer } from '../../components/Admin/AdminContainer';
+import dynamic from 'next/dynamic';
+import { useAdmin } from '../../hooks/useAdmin';
+import NotFound from '../404';
+
+const AdminContainer = dynamic(() => import('../../components/Admin/AdminContainer'), { ssr: false });
 
 const Admin = () => {
-  return <AdminContainer>{/* DashBoard */}</AdminContainer>;
+  const checkAdmin = useAdmin();
+  return checkAdmin.admin ? <AdminContainer>{/* DashBoard */}</AdminContainer> : <NotFound />;
 };
 
 export default Admin;

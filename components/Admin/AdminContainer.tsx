@@ -7,7 +7,7 @@ interface IAdminProps {
   children?: React.ReactNode;
 }
 
-export const AdminContainer: NextPage<IAdminProps> = ({ children }) => {
+const AdminContainer: NextPage<IAdminProps> = ({ children }) => {
   return (
     <div className="section min-h-screen px-[5vw]">
       <SEO title="Admin" />
@@ -18,3 +18,5 @@ export const AdminContainer: NextPage<IAdminProps> = ({ children }) => {
     </div>
   );
 };
+
+export default AdminContainer;
