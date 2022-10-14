@@ -14,22 +14,6 @@ export const Timeline = () => {
           detailButtonUrl="https://github.com/Mangpha/Blog-Frontend/"
         />
         <TimelineDetail
-          date="2022.08.29 ~ 09.28"
-          title="Dev Blog Front-End (deprecated)"
-          description="개인 dev 블로그 프론트엔드 개발 (React)"
-          detail
-          detailButtonName="Github"
-          detailButtonUrl="https://github.com/Mangpha/Portfolio-frontend-deprecated/"
-        />
-        <TimelineDetail
-          date="2022.08.08 ~ "
-          title="Dev Blog Back-End"
-          description="개인 dev 블로그 백엔드 개발"
-          detail
-          detailButtonName="Github"
-          detailButtonUrl="https://github.com/Mangpha/Blog-Backend"
-        />
-        <TimelineDetail
           date="2022.08.08"
           title="Nomad Coders Challenge"
           description="우버 이츠 클론 6주 완성반"
