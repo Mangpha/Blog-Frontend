@@ -1,16 +1,16 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { useState } from 'react';
-import { client } from '../../../apollo';
-import { Category } from '../../../components/Blog/Category';
-import { CategoryPostsList } from '../../../components/Blog/CategoryPostsList';
-import { Pagination } from '../../../components/Blog/Pagination';
-import { Loading } from '../../../components/Loading';
-import { SEO } from '../../../components/SEO';
-import { FIND_ALL_CATEGORY_QUERY, FIND_POSTS_BY_CATEGORY_QUERY } from '../../api/gql';
-import { FindAllCategoryQuery } from '../../api/__graphql__/FindAllCategoryQuery';
-import { FindPostsByCategoryQuery, FindPostsByCategoryQueryVariables } from '../../api/__graphql__/FindPostsByCategoryQuery';
+import { client } from '../../../../apollo';
+import { Category } from '../../../../components/Blog/Category';
+import { CategoryPostsList } from '../../../../components/Blog/CategoryPostsList';
+import { Pagination } from '../../../../components/Blog/Pagination';
+import { Loading } from '../../../../components/Loading';
+import { SEO } from '../../../../components/SEO';
+import { FIND_ALL_CATEGORY_QUERY, FIND_POSTS_BY_CATEGORY_QUERY } from '../../../api/gql';
+import { FindAllCategoryQuery } from '../../../api/__graphql__/FindAllCategoryQuery';
+import { FindPostsByCategoryQuery, FindPostsByCategoryQueryVariables } from '../../../api/__graphql__/FindPostsByCategoryQuery';
 
 interface IParams extends ParsedUrlQuery {
   categoryId: string;
@@ -38,25 +38,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       categoryData,
     },
     revalidate: 3600,
-  };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: categoryData } = await client.query<FindAllCategoryQuery>({
-    query: FIND_ALL_CATEGORY_QUERY,
-  });
-
-  const paths = categoryData.findAllCategories.categories
-    ? categoryData.findAllCategories.categories.map((category) => ({
-        params: {
-          categoryId: category.id.toString(),
-        },
-      }))
-    : [];
-
-  return {
-    paths,
-    fallback: 'blocking',
   };
 };
 
