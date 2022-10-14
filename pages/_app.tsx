@@ -1,8 +1,10 @@
+import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
+import { client } from '../apollo';
 import { Header } from '../components/Header';
 import { TopButton } from '../components/TopButton';
 import './global.css';
@@ -39,10 +41,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Script src="https://kit.fontawesome.com/7e5e711513.js" crossOrigin="anonymous"></Script>
-      <Header />
-      <TopButton />
-      <Component {...pageProps} />
-      <Footer />
+      <ApolloProvider client={client}>
+        <Header />
+        <TopButton />
+        <Component {...pageProps} />
+        <Footer />
+      </ApolloProvider>
     </>
   );
 }

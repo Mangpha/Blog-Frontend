@@ -6,7 +6,7 @@ export const Footer = () => {
           <span>Get connected with me on social networks:</span>
           <div>
             <i className="fa-brands fa-github footer_icon" onClick={() => window.open('https://github.com/Mangpha', '_blank')}></i>
-            <i className="fa-brands fa-instagram footer_icon" onClick={() => window.open('https://www.instagram.com/mangph4/', '_blank')}></i>
+            <i className="fa-brands fa-instagram footer_icon" onClick={() => window.open('https://www.instagram.com/b.1ind3r/', '_blank')}></i>
             <i className="fa-brands fa-discord footer_icon" onClick={() => window.open('https://discordapp.com/users/340513887440994305', '_blank')}></i>
             <i className="fa-brands fa-youtube footer_icon" onClick={() => window.open('https://www.youtube.com/channel/UCbPAqwgV8pgJH60kam9PZKA', '_blank')}></i>
           </div>

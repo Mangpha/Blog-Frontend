@@ -1,10 +1,16 @@
+import React from 'react';
 import dayjs from 'dayjs';
 import Link from 'next/link';
+import { FindPostsByCategoryQuery } from '../../pages/api/__graphql__/FindPostsByCategoryQuery';
 
-export const PostsByCategoryList = () => {
+interface IPostsBycategoryListProps {
+  data: FindPostsByCategoryQuery | undefined;
+}
+
+export const PostsByCategoryList: React.FC<IPostsBycategoryListProps> = ({ data }) => {
   return (
     <div className="flex flex-col divide-y my-5 dark:divide-gray-500">
-      {/* {data ? (
+      {data ? (
         data.findPostByCategory.posts?.map((post) => (
           <Link key={post.id} href={`/blog/${post.id}`}>
             <a className="py-6 px-5 hover:dark:bg-gray-900 hover:bg-gray-100 transition-colors">
@@ -19,7 +25,7 @@ export const PostsByCategoryList = () => {
         ))
       ) : (
         <div>Posts not found!</div>
-      )} */}
+      )}
     </div>
   );
 };
