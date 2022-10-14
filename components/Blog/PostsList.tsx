@@ -1,17 +1,12 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { FindPostsQuery } from '../../pages/api/__graphql__/FindPostsQuery';
 import { NextPage } from 'next';
 import Link from 'next/link';
 
-interface IPostsListProps {
-  data: FindPostsQuery | undefined;
-}
-
-export const PostsList: NextPage<IPostsListProps> = ({ data }) => {
+export const PostsList = () => {
   return (
     <div className="flex flex-col divide-y my-5 dark:divide-gray-500">
-      {data ? (
+      {/* {data ? (
         data.findAllPosts.posts?.map((post) => (
           <Link key={post.id} href={`/blog/${post.id}`}>
             <a className="py-6 px-5 hover:dark:bg-gray-900 hover:bg-gray-100 transition-colors">
@@ -26,7 +21,7 @@ export const PostsList: NextPage<IPostsListProps> = ({ data }) => {
         ))
       ) : (
         <div>Posts not found!</div>
-      )}
+      )} */}
     </div>
   );
 };

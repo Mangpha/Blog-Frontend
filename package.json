@@ -10,7 +10,8 @@
     "codegen": "rimraf pages/api/__graphql__ && npx env-cmd -f .env.local apollo client:codegen pages/api/__graphql__ --target=typescript --outputFlat",
     "tailwind:build": "NODE_ENV=production npx tailwindcss -i styles/tailwind.css -o pages/global.css --minify",
     "tailwind:dev": "npx tailwindcss -i styles/tailwind.css -o pages/global.css --minify --watch",
-    "sitemap": "sh scripts/generate-sitemap.sh"
+    "sitemap": "sh scripts/generate-sitemap.sh",
+    "deploy": "serverless"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
@@ -35,8 +36,7 @@
     "rehype-stringify": "^9.0.3",
     "remark-breaks": "^3.0.2",
     "remark-gfm": "^3.0.1",
-    "remark-normalize-headings": "^3.0.1",
-    "serverless": "^3.22.0"
+    "remark-normalize-headings": "^3.0.1"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.7",

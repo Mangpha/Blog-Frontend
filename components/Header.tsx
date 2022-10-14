@@ -1,23 +1,10 @@
-import { useReactiveVar } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import React from 'react';
-import { isLoginVar } from '../apollo';
-import { useMyData } from '../hooks/useMyData';
-import { UserRoles } from '../pages/api/__graphql__/globalTypes';
 
 const Switcher = dynamic(() => import('./Switcher'), { ssr: false });
 
 export const Header = () => {
-  const isLogin = useReactiveVar(isLoginVar);
-  const { data: userData } = useMyData();
-  const [loginState, setLoginState] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    if (isLogin) setLoginState(true);
-    else setLoginState(false);
-  }, [isLogin]);
-
   return (
     <header className="header_container base header_anim">
       <div className="px-[5vw]">
@@ -45,20 +32,6 @@ export const Header = () => {
             <Link href="/projects">
               <a className="header_text link link-underline link-underline-black pb-2">Projects</a>
             </Link>
-            {loginState ? (
-              <Link href="/logout">
-                <a className="header_text link link-underline link-underline-black pb-2">Logout</a>
-              </Link>
-            ) : (
-              <Link href="/login">
-                <a className="header_text link link-underline link-underline-black pb-2">Login</a>
-              </Link>
-            )}
-            {loginState && userData?.myData.role === UserRoles.Admin && (
-              <Link href="/admin">
-                <a className="header_text link link-underline link-underline-black pb-2">Admin</a>
-              </Link>
-            )}
             <Switcher />
           </div>
         </div>
