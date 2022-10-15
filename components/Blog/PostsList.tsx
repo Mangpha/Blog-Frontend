@@ -10,11 +10,11 @@ interface IPostsListProps {
 
 export const PostsList: NextPage<IPostsListProps> = ({ data }) => {
   return (
-    <div className="flex flex-col divide-y my-5 dark:divide-gray-500">
+    <div className="grid grid-cols-3 gap-5 my-5 dark:divide-gray-500">
       {data ? (
         data.findAllPosts.posts?.map((post) => (
           <Link key={post.id} href={`/blog/${post.id}`}>
-            <a className="py-6 px-5 hover:dark:bg-gray-900 hover:bg-gray-100 transition-colors">
+            <a className="py-6 px-5 max-w-sm rounded overflow-hidden shadow-xl scale-90 hover:scale-100 transition-transform duration-200">
               <p className="text-md mb-3 text-gray-500">{post.category?.name || '-'}</p>
               <p className="text-3xl mb-5">{post.title}</p>
               <div className="flex justify-between">
