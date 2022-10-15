@@ -1,10 +1,12 @@
 import { useQuery } from '@apollo/client';
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import { AdminContainer } from '../../../components/Admin/AdminContainer';
 import { AdminCategoryList } from '../../../components/Admin/categoryPanel/AdminCategoriesList';
 import { Loading } from '../../../components/Loading';
 import { FIND_ALL_CATEGORY_QUERY } from '../../api/gql';
 import { FindAllCategoryQuery } from '../../api/__graphql__/FindAllCategoryQuery';
+
+const AdminContainer = dynamic(() => import('../../../components/Admin/AdminContainer'), { ssr: false });
 
 const AdminCategoryPanel = () => {
   const { data: categoryData, loading } = useQuery<FindAllCategoryQuery>(FIND_ALL_CATEGORY_QUERY);

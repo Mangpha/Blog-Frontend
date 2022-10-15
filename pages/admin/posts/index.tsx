@@ -1,11 +1,13 @@
 import { useQuery } from '@apollo/client';
+import dynamic from 'next/dynamic';
 import React from 'react';
-import { AdminContainer } from '../../../components/Admin/AdminContainer';
 import { AdminPostsList } from '../../../components/Admin/postPanel/AdminPostsList';
 import { AdminPostPagination } from '../../../components/Admin/postPanel/AdminPostsPagination';
 import { Loading } from '../../../components/Loading';
 import { ADMIN_FIND_ALL_POSTS } from '../../api/gql';
 import { AdminFindAllPosts, AdminFindAllPostsVariables } from '../../api/__graphql__/AdminFindAllPosts';
+
+const AdminContainer = dynamic(() => import('../../../components/Admin/AdminContainer'), { ssr: false });
 
 const AdminPostsPanel = () => {
   const [page, setPage] = React.useState<number>(1);
