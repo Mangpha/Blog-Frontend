@@ -6,20 +6,12 @@ export const Timeline = () => {
       <h2 className="text-2xl mb-10">Time Line</h2>
       <ol className="relative border-l border-gray-200 dark:border-gray-700">
         <TimelineDetail
-          date="2022.09.28 ~ "
+          date="2022.08.29 ~"
           title="Dev Blog Front-End"
           description="개인 dev 블로그 프론트엔드 개발 (NextJS)"
           detail
           detailButtonName="Github"
           detailButtonUrl="https://github.com/Mangpha/Blog-Frontend/"
-        />
-        <TimelineDetail
-          date="2022.08.29 ~ 09.28"
-          title="Dev Blog Front-End (deprecated)"
-          description="개인 dev 블로그 프론트엔드 개발 (React)"
-          detail
-          detailButtonName="Github"
-          detailButtonUrl="https://github.com/Mangpha/Portfolio-frontend-deprecated/"
         />
         <TimelineDetail
           date="2022.08.08 ~ "
@@ -30,7 +22,7 @@ export const Timeline = () => {
           detailButtonUrl="https://github.com/Mangpha/Blog-Backend"
         />
         <TimelineDetail
-          date="2022.08.08"
+          date="2022.06.20 - 08.08"
           title="Nomad Coders Challenge"
           description="우버 이츠 클론 6주 완성반"
           detail
@@ -62,7 +54,7 @@ export const Timeline = () => {
           detailButtonName="About"
         />
         <TimelineDetail
-          date="2021.04.19"
+          date="2021.03.29 - 04.19"
           title="Nomad Coders Challenge"
           description="Python 2주 완성반"
           detail
