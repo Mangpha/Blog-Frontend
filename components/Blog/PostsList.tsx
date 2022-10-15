@@ -17,7 +17,9 @@ export const PostsList: NextPage<IPostsListProps> = ({ data }) => {
       {data ? (
         data.findAllPosts.posts?.map((post) => (
           <Link key={post.id} href={`/blog/${post.id}`}>
-            <PostCard category={post.category?.name || '-'} title={post.title} createdAt={dayjs(post.createdAt).format('YYYY-MM-DD HH:mm')} />
+            <a>
+              <PostCard category={post.category?.name || '-'} title={post.title} createdAt={dayjs(post.createdAt).format('YYYY-MM-DD HH:mm')} />
+            </a>
           </Link>
         ))
       ) : (

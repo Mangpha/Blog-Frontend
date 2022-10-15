@@ -37,7 +37,7 @@ const MarkDownView: React.FC<MarkDownViewProps> = ({ content }) => {
           },
           pre({ children, className, ...props }) {
             return (
-              <pre className={`${className} dark:bg-gray-800`} {...props}>
+              <pre className={`${className} dark:bg-dark`} {...props}>
                 {children}
               </pre>
             );
