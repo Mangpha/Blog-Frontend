@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { useState } from 'react';
@@ -38,6 +38,25 @@ export const getStaticProps: GetStaticProps = async (context) => {
       categoryData,
     },
     revalidate: 3600,
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data: categoryData } = await client.query<FindAllCategoryQuery>({
+    query: FIND_ALL_CATEGORY_QUERY,
+  });
+
+  const paths = categoryData.findAllCategories.categories
+    ? categoryData.findAllCategories.categories.map((category) => ({
+        params: {
+          categoryId: category.id.toString(),
+        },
+      }))
+    : [];
+
+  return {
+    paths,
+    fallback: 'blocking',
   };
 };
 

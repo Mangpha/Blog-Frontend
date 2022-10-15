@@ -30,20 +30,12 @@ export const Category: React.FC<ICategoryProps> = ({ data, selectId }) => {
         <></>
       )}
       <Link href={`/blog`}>
-        <a
-          className={`inline-block text-2xl mb-5 font-bold py-3 px-4 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white transition-colors`}
-        >
-          All Posts
-        </a>
+        <a className={`inline-block text-2xl mb-5 font-bold py-3 px-4 rounded-lg hover:text-gray-900 dark:hover:text-white transition-colors`}>All Posts</a>
       </Link>
       {data.findAllCategories.success &&
         data.findAllCategories.categories?.map((category) => (
           <Link href={`/blog/category/${category.id}`} key={category.id}>
-            <a
-              className={`inline-block ${
-                selectId === category.id && 'bg-gray-300 dark:bg-gray-400 dark:text-white'
-              } py-3 px-4 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white transition-colors`}
-            >
+            <a className={`inline-block ${selectId === category.id && 'dark:text-white'} py-3 px-4 rounded-lg hover:text-gray-900 dark:hover:text-white transition-colors`}>
               {category.name}
             </a>
           </Link>
