@@ -4,6 +4,13 @@ import React from 'react';
 
 const Switcher = dynamic(() => import('./Switcher'), { ssr: false });
 
+const HeaderList = [
+  ['Home', '/'],
+  ['Blog', '/blog'],
+  ['About', '/about'],
+  ['Projects', '/projects'],
+];
+
 export const Header = () => {
   return (
     <header className="header_container base header_anim">
@@ -20,18 +27,11 @@ export const Header = () => {
             </svg>
           </Link>
           <div className="flex justify-between items-center">
-            <Link href="/">
-              <a className="header_text link link-underline link-underline-black pb-2">Home</a>
-            </Link>
-            <Link href="/blog">
-              <a className="header_text link link-underline link-underline-black pb-2">Blog</a>
-            </Link>
-            <Link href="/about">
-              <a className="header_text link link-underline link-underline-black pb-2">About</a>
-            </Link>
-            <Link href="/projects">
-              <a className="header_text link link-underline link-underline-black pb-2">Projects</a>
-            </Link>
+            {HeaderList.map(([title, url]) => (
+              <Link href={url} key={title}>
+                <a className="header_text link link-underline link-underline-black pb-2">{title}</a>
+              </Link>
+            ))}
             <Switcher />
           </div>
         </div>
