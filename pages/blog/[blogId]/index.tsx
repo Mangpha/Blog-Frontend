@@ -4,7 +4,9 @@ import { client } from '../../../apollo';
 import { FIND_POSTS_QUERY, FIND_POST_BY_ID } from '../../api/gql';
 import { FindPostsQuery, FindPostsQueryVariables } from '../../api/__graphql__/FindPostsQuery';
 import { ParsedUrlQuery } from 'querystring';
-import Post from '../../../components/Blog/Post';
+import dynamic from 'next/dynamic';
+
+const Post = dynamic(() => import('../../../components/Blog/Post'), { ssr: false });
 
 interface IParams extends ParsedUrlQuery {
   blogId: string;
