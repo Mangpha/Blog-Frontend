@@ -1,10 +1,8 @@
 import dayjs from 'dayjs';
 import { NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { FindPostsByCategoryQuery } from '../../pages/api/__graphql__/FindPostsByCategoryQuery';
-
-const PostCard = dynamic(() => import('./PostCard'), { ssr: false });
+import PostCard from './PostCard';
 
 interface ICategoryPostsListProps {
   data: FindPostsByCategoryQuery | undefined;

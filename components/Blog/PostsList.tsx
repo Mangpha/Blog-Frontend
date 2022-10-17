@@ -3,15 +3,13 @@ import dayjs from 'dayjs';
 import { FindPostsQuery } from '../../pages/api/__graphql__/FindPostsQuery';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const PostCard = dynamic(() => import('./PostCard'), { ssr: false });
+import PostCard from './PostCard';
 
 interface IPostsListProps {
   data: FindPostsQuery | undefined;
 }
 
-export const PostsList: NextPage<IPostsListProps> = ({ data }) => {
+const PostsList: NextPage<IPostsListProps> = ({ data }) => {
   return (
     <div className="grid grid-cols-3 gap-5 my-5 dark:divide-gray-500">
       {data ? (
@@ -28,3 +26,5 @@ export const PostsList: NextPage<IPostsListProps> = ({ data }) => {
     </div>
   );
 };
+
+export default PostsList;

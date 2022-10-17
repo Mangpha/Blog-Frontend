@@ -1,12 +1,14 @@
 import { useQuery } from '@apollo/client';
+import dynamic from 'next/dynamic';
 import React from 'react';
 import { Category } from '../../components/Blog/Category';
 import { Pagination } from '../../components/Blog/Pagination';
-import { PostsList } from '../../components/Blog/PostsList';
 import { SEO } from '../../components/SEO';
 import { FIND_ALL_CATEGORY_QUERY, FIND_POSTS_QUERY } from '../api/gql';
 import { FindAllCategoryQuery } from '../api/__graphql__/FindAllCategoryQuery';
 import { FindPostsQuery, FindPostsQueryVariables } from '../api/__graphql__/FindPostsQuery';
+
+const PostsList = dynamic(() => import('../../components/Blog/PostsList'), { ssr: false });
 
 const Blog = () => {
   const [page, setPage] = React.useState<number>(1);

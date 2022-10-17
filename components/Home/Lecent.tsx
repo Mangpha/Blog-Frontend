@@ -1,8 +1,10 @@
 import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { FindPostsQuery } from '../../pages/api/__graphql__/FindPostsQuery';
-import { PostsList } from '../Blog/PostsList';
+
+const PostsList = dynamic(() => import('../Blog/PostsList'), { ssr: false });
 
 interface ILecentProps {
   data: FindPostsQuery;
