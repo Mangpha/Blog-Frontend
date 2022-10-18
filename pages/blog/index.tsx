@@ -8,7 +8,7 @@ import { FIND_ALL_CATEGORY_QUERY, FIND_POSTS_QUERY } from '../api/gql';
 import { FindAllCategoryQuery } from '../api/__graphql__/FindAllCategoryQuery';
 import { FindPostsQuery, FindPostsQueryVariables } from '../api/__graphql__/FindPostsQuery';
 
-const PostsList = dynamic(() => import('../../components/Blog/PostsList'), { ssr: false });
+const PostsList = dynamic(() => import('../../components/Blog/PostsList'));
 
 const Blog = () => {
   const [page, setPage] = React.useState<number>(1);
@@ -27,12 +27,12 @@ const Blog = () => {
   return (
     <div className="h-full min-h-screen">
       <SEO title="Blog" />
-      <div className="pt-[10vw] w-full justify-center grid-cols-7 grid grid-flow-row-dense container_small">
+      <div className="pt-[7vw] w-full justify-center container_small">
+        {categoryData && <Category data={categoryData} />}
         <div className="flex flex-col col-span-6 mr-5">
           <PostsList data={postData} />
           <Pagination page={page} onNext={onNext} onPrev={onPrev} totalPages={postData?.findAllPosts.totalPages} />
         </div>
-        {categoryData && <Category data={categoryData} />}
       </div>
     </div>
   );
