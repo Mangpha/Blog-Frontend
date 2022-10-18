@@ -1,2 +1,5 @@
 User-agent: *
-Disallow: /[MY_ADMIN_PAGE_DIR]*/
+Disallow: /admin
+Disallow: /api
+Disallow: /login
+Allow: /
