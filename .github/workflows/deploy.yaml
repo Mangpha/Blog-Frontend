@@ -49,8 +49,9 @@ jobs:
 
       - name: Create serverless env file
         run: |
-          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
-          cat .env
+          touch .env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.DEPLOY_ACCESS_KEY }}"
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.DEPLOY_SECRET_KEY }}"
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
 
