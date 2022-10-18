@@ -53,8 +53,11 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
 
-      - name: Generate Sitemap
-        run: npm run sitemap
+      - name: Create serverless.yml
+        run: |
+          touch serverless.yml
+          echo "blogFrontEnd:\n\tcomponent: '@sls-next/serverless-component@latest'\n\tinputs:\n\t\tbucketRegion: ${{ secrets.AWS_REGION }}\n\t\tbucketName: ${{ secrets.AWS_S3_BUCKET_NAME }}\n\t\tname:\n\t\t\tdefaultLambda: DefaultAdminLambda\n\t\t\timageLamgba: ImageAdminLambda\n\t\tcloudfront:\n\t\t\tcomment: 'blog client deploy'\n\t\t\tdistributionId: '${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}'\n\t\taliases: ['mangpha.dev']\n\t\tcertificate:\n\t\t\tcloudFrontDefaultCertificate: false\n\t\t\tacmCertificateArn: '${{ secrets.AWS_ACM_CERTIFICATE_ARN }}'\n\t\t\tminimumProtocolVersion: 'TLSv1.2_2021'" >> serverless.yml
+          cat serverless.yml
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
