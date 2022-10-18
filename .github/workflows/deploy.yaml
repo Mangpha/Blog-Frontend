@@ -61,7 +61,7 @@ jobs:
             component: '@sls-next/serverless-component@latest'
             inputs:
               bucketRegion: ${{ secrets.AWS_REGION }}
-              bucketName: ${{ secrets.AWS_S3_BUCKET_NAME }}\n\t\t
+              bucketName: ${{ secrets.AWS_S3_BUCKET_NAME }}
               name:
                 defaultLambda: DefaultAdminLambda
                 imageLamgba: ImageAdminLambda
