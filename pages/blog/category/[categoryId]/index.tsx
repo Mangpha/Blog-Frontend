@@ -69,16 +69,15 @@ const CategoryPosts = ({ postData, categoryData }: { postData: FindPostsByCatego
   const onPrev = () => setPage(() => page - 1);
 
   return (
-    <div className="container_small section min-h-screen">
+    <div className="min-h-screen">
       <SEO title="Blog" />
-      <div className="text-2xl">Search Category: {categoryData?.findAllCategories.categories?.find((category) => category.id === Number(categoryId))?.name}</div>
-
-      <div className="w-full justify-center grid-cols-7 grid grid-flow-row-dense">
+      <div className="pt-[7vw] w-full justify-center container_small">
+        <div className="text-2xl">Search Category: {categoryData?.findAllCategories.categories?.find((category) => category.id === Number(categoryId))?.name}</div>
+        {categoryData && <Category data={categoryData} selectId={Number(categoryId)} />}
         <div className="flex flex-col col-span-6 mr-5">
           <CategoryPostsList data={postData} />
           <Pagination page={page} onNext={onNext} onPrev={onPrev} totalPages={postData?.findPostByCategory.totalPages} />
         </div>
-        {categoryData && <Category data={categoryData} selectId={Number(categoryId)} />}
       </div>
     </div>
   );
