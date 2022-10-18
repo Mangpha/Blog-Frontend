@@ -38,6 +38,7 @@ jobs:
         run: |
           npm i
           npm i -g serverless@2.72.2
+          npm i @sls-next/serverless-component@latest
 
       - name: Create local env file
         run: |
