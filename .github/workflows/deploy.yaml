@@ -56,7 +56,24 @@ jobs:
       - name: Create serverless.yml
         run: |
           touch serverless.yml
-          echo "blogFrontEnd:\n\tcomponent: '@sls-next/serverless-component@latest'\n\tinputs:\n\t\tbucketRegion: ${{ secrets.AWS_REGION }}\n\t\tbucketName: ${{ secrets.AWS_S3_BUCKET_NAME }}\n\t\tname:\n\t\t\tdefaultLambda: DefaultAdminLambda\n\t\t\timageLamgba: ImageAdminLambda\n\t\tcloudfront:\n\t\t\tcomment: 'blog client deploy'\n\t\t\tdistributionId: '${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}'\n\t\taliases: ['mangpha.dev']\n\t\tcertificate:\n\t\t\tcloudFrontDefaultCertificate: false\n\t\t\tacmCertificateArn: '${{ secrets.AWS_ACM_CERTIFICATE_ARN }}'\n\t\t\tminimumProtocolVersion: 'TLSv1.2_2021'" >> serverless.yml
+          cat << EOF > serverless.yml
+          blogFrontEnd:
+            component: '@sls-next/serverless-component@latest'
+            inputs:
+              bucketRegion: ${{ secrets.AWS_REGION }}
+              bucketName: ${{ secrets.AWS_S3_BUCKET_NAME }}\n\t\t
+              name:
+                defaultLambda: DefaultAdminLambda
+                imageLamgba: ImageAdminLambda
+              cloudfront:
+                comment: 'blog client deploy'
+                distributionId: '${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}'
+              aliases: ['mangpha.dev']
+              certificate:
+                cloudFrontDefaultCertificate: false
+                acmCertificateArn: '${{ secrets.AWS_ACM_CERTIFICATE_ARN }}'
+                minimumProtocolVersion: 'TLSv1.2_2021'
+          EOF
           cat serverless.yml
 
       - name: Configure AWS credentials
