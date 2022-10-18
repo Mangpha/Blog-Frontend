@@ -28,6 +28,7 @@ yarn-error.log*
 # local env files
 .env*.local
 .env.dev
+.env
 
 # vercel
 .vercel
@@ -39,3 +40,8 @@ next-env.d.ts
 /public/sitemap/
 /public/robots.txt
 /public/sitemap.xml
+
+# deploy
+/.serverless
+/.serverless_nextjs
+serverless.yml

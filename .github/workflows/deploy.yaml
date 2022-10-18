@@ -7,11 +7,11 @@ on:
 
 jobs:
   build:
-    name: CI pipeline
+    name: Deploy
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node-version: ['16.15.0']
+        node-version: ['16.x']
 
     steps:
       - uses: actions/checkout@v3
@@ -35,56 +35,26 @@ jobs:
 
       - name: Install Dependencies
         if: steps.node-cache.outputs.cache-hit != 'true'
-        run: npm i
+        run: |
+          npm i
+          npm i -g serverless@2.72.2
 
-      - name: Create env file
+      - name: Create local env file
         run: |
           jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env.local
           cat .env.local
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
 
-      - name: Run build
-        run: npm run build
-
-  deploy:
-    name: CD pipeline
-    runs-on: ubuntu-20.04
-
-    strategy:
-      matrix:
-        node-version: ['16.15.0']
-
-    needs: build
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Create .npmrc
+      - name: Create serverless env file
         run: |
-          echo "unsafe-perm=true" > .npmrc
-          cat .npmrc
-
-      - name: Create env file
-        run: |
-          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env.local
-          cat .env.local
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+          cat .env
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
-
-      - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm i
 
       - name: Generate Sitemap
         run: npm run sitemap
-
-      - name: Run build
-        run: npm run build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -93,16 +63,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.DEPLOY_SECRET_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Deploy to S3
-        run: aws s3 sync ./${{ secrets.BUILD_DIRECTORY }} ${{ secrets.AWS_S3_BUCKET_NAME }} --acl bucket-owner-full-control
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.DEPLOY_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.DEPLOY_SECRET_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-
-      - name: CloudFront Invalidate Cache
-        uses: chetan/invalidate-cloudfront-action@master
-        env:
-          AWS_DISTRIBUTION: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
-          PATHS: '/index.html'
-        continue-on-error: true
+      - name: Deploy Blog FrontEnd
+        run: |
+          npm run deploy
