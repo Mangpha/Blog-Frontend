@@ -39,6 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
       </Head>
       <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG}`} strategy="afterInteractive" />
       <Script id="google-analytics" strategy="afterInteractive">

@@ -1,10 +1,8 @@
 import dayjs from 'dayjs';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { remark } from 'remark';
 import { FindPostByIdQuery_findPostById_post } from '../../pages/api/__graphql__/FindPostByIdQuery';
 import { SEO } from '../SEO';
-import html from 'remark-html';
 import Comment from './Comments';
 import MarkDownView from './MarkDownView';
 import { mdToHtml } from '../../hooks/useMdToHtml';
