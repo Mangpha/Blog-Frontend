@@ -40,6 +40,15 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG}`} strategy="afterInteractive" />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', ${process.env.NEXT_PUBLIC_GTAG});
+        `}
+      </Script>
       <Script src="https://kit.fontawesome.com/7e5e711513.js" crossOrigin="anonymous"></Script>
       <ApolloProvider client={client}>
         <Header />
