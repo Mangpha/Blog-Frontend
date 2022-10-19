@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
-import { getServerSideSitemap, ISitemapField } from 'next-sitemap';
+import { getServerSideSitemap } from 'next-sitemap';
 import { FindAllCategoryQuery_findAllCategories_categories } from './api/__graphql__/FindAllCategoryQuery';
 import { FindPostsQuery_findAllPosts_posts } from './api/__graphql__/FindPostsQuery';
 
@@ -50,27 +50,28 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     .then((res) => res.data.data.findAllCategories.categories)
     .catch((err) => console.log(err.response.data));
 
-  const commonFields: ISitemapField[] = commonUrls.map((url) => ({
+  const commonFields = commonUrls.map((url) => ({
     loc: loc + url,
-    changefreq: 'daily',
-    priority: 0.8,
+    changefreq: 'weekly',
+    priority: '0.9',
     lastmod,
   }));
-  const postFields: ISitemapField[] = posts.map((post) => ({
+  const postFields = posts.map((post) => ({
     loc: loc + '/blog/' + post.id,
-    changefreq: 'daily',
-    priority: 1.0,
+    changefreq: 'weekly',
+    priority: '1.0',
     lastmod,
   }));
-  const categoryFields: ISitemapField[] = categories.map((category) => ({
+  const categoryFields = categories.map((category) => ({
     loc: loc + '/blog/category/' + category.id,
-    changefreq: 'daily',
-    priority: 0.9,
+    changefreq: 'weekly',
+    priority: '0.8',
     lastmod,
   }));
 
   const fields = [...commonFields, ...postFields, ...categoryFields];
 
+  // @ts-ignore
   return getServerSideSitemap(ctx, fields);
 };
 
