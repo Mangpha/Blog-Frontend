@@ -1,17 +1,21 @@
 import dayjs from 'dayjs';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { remark } from 'remark';
 import { FindPostByIdQuery_findPostById_post } from '../../pages/api/__graphql__/FindPostByIdQuery';
 import { SEO } from '../SEO';
+import html from 'remark-html';
 import Comment from './Comments';
 import MarkDownView from './MarkDownView';
+import { mdToHtml } from '../../hooks/useMdToHtml';
 
-const Post: NextPage<Partial<FindPostByIdQuery_findPostById_post>> = ({ title, category, createdAt, content }) => {
+const Post: NextPage<Partial<FindPostByIdQuery_findPostById_post>> = ({ title, category, createdAt, content = '' }) => {
   const router = useRouter();
 
+  console.log(mdToHtml(content));
   return (
     <div className="container_small pt-[10vw] h-full min-h-screen">
-      <SEO title={title} description={content?.slice(0, 50)} />
+      <SEO title={title} description={mdToHtml(content)} />
       <div className="w-full px-10 flex flex-col pb-10">
         <div className="mb-5">
           <span className="cursor-pointer text-3xl px-2 py-1 hover:text-sky-400 hover:dark:text-sky-300 transition-colors" onClick={() => router.back()}>
@@ -26,7 +30,7 @@ const Post: NextPage<Partial<FindPostByIdQuery_findPostById_post>> = ({ title, c
               <span className="text-gray-500">{dayjs(createdAt).format('YYYY-MM-DD HH:mm')}</span>
             </div>
           </div>
-          <MarkDownView content={content || ''} />
+          <MarkDownView content={content} />
         </div>
       </div>
       <hr className="h-px bg-gray-300 border-0 dark:bg-gray-700" />
