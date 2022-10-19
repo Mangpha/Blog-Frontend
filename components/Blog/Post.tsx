@@ -11,7 +11,7 @@ const Post: NextPage<Partial<FindPostByIdQuery_findPostById_post>> = ({ title, c
 
   return (
     <div className="container_small pt-[10vw] h-full min-h-screen">
-      <SEO title={title} />
+      <SEO title={title} description={content?.slice(0, 50)} />
       <div className="w-full px-10 flex flex-col pb-10">
         <div className="mb-5">
           <span className="cursor-pointer text-3xl px-2 py-1 hover:text-sky-400 hover:dark:text-sky-300 transition-colors" onClick={() => router.back()}>
