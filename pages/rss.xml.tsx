@@ -4,6 +4,10 @@ import { GetServerSideProps } from 'next';
 import { mdToHtml } from '../hooks/useMdToHtml';
 import { FindPostsQuery_findAllPosts_posts } from './api/__graphql__/FindPostsQuery';
 
+interface IRSSGetPostsData extends FindPostsQuery_findAllPosts_posts {
+  updatedAt: Date;
+}
+
 const getAllPosts = async () => {
   return await axios({
     url: process.env.NEXT_PUBLIC_END_POINT,
@@ -18,7 +22,14 @@ const getAllPosts = async () => {
             id
             title
             content
-            createdAt
+            updatedAt
+            author {
+              username
+            }
+            category {
+              id
+              name
+            }
           }
         }
       }`,
@@ -32,7 +43,7 @@ const getAllPosts = async () => {
 
 const host = 'https://mangpha.dev';
 
-const buildFeed = (items: FindPostsQuery_findAllPosts_posts[]) => {
+const buildFeed = (items: IRSSGetPostsData[]) => {
   const date = new Date();
   const feed = new Feed({
     id: host,
@@ -53,7 +64,25 @@ const buildFeed = (items: FindPostsQuery_findAllPosts_posts[]) => {
       title: item.title,
       link: `${host}/blog/${item.id}`,
       description: mdToHtml(item.content),
-      date: new Date(item.createdAt),
+      date: new Date(item.updatedAt),
+      ...(item.author && {
+        author: [
+          {
+            name: item.author.username,
+            email: 'mangph4@gmail.com',
+            link: 'https://github.com/mangpha',
+          },
+        ],
+      }),
+      ...(item.category && {
+        category: [
+          {
+            name: item.category?.name,
+            domain: host + '/blog/category/' + item.category?.id,
+            term: item.category?.name,
+          },
+        ],
+      }),
     });
   });
 
