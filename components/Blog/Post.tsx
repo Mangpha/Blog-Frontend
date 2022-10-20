@@ -3,14 +3,15 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { FindPostByIdQuery_findPostById_post } from '../../pages/api/__graphql__/FindPostByIdQuery';
 import { SEO } from '../SEO';
-import Comment from './Comments';
 import MarkDownView from './MarkDownView';
 import { mdToHtml } from '../../hooks/useMdToHtml';
+import dynamic from 'next/dynamic';
+
+const Comment = dynamic(() => import('./Comments'), { ssr: false });
 
 const Post: NextPage<Partial<FindPostByIdQuery_findPostById_post>> = ({ title, category, createdAt, content = '' }) => {
   const router = useRouter();
 
-  console.log(mdToHtml(content));
   return (
     <div className="container_small pt-[10vw] h-full min-h-screen">
       <SEO title={title} description={mdToHtml(content)} />
