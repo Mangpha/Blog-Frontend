@@ -8,7 +8,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const loc = 'https://mangpha.dev';
   const lastmod = new Date().toISOString();
 
-  const commonUrls = ['/', '/404', '/about', '/blog', '/projects'];
+  const commonUrls = ['/', '/404', '/about', '/projects'];
   const posts: FindPostsQuery_findAllPosts_posts[] = await axios({
     url: process.env.NEXT_PUBLIC_END_POINT,
     method: 'post',
@@ -57,13 +57,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     lastmod,
   }));
   const postFields = posts.map((post) => ({
-    loc: loc + '/blog/' + post.id,
+    loc: loc + '/' + post.id,
     changefreq: 'weekly',
     priority: '1.0',
     lastmod,
   }));
   const categoryFields = categories.map((category) => ({
-    loc: loc + '/blog/category/' + category.id,
+    loc: loc + '/category/' + category.id,
     changefreq: 'weekly',
     priority: '0.8',
     lastmod,
