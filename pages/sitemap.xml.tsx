@@ -8,7 +8,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const loc = 'https://mangpha.dev';
   const lastmod = new Date().toISOString();
 
-  const commonUrls = ['/', '/404', '/about', '/projects'];
+  const commonUrls = ['/', '/404', '/about'];
   const posts: FindPostsQuery_findAllPosts_posts[] = await axios({
     url: process.env.NEXT_PUBLIC_END_POINT,
     method: 'post',
