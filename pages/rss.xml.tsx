@@ -62,7 +62,7 @@ const buildFeed = (items: IRSSGetPostsData[]) => {
   items.forEach((item) => {
     feed.addItem({
       title: item.title,
-      link: `${host}/blog/${item.id}`,
+      link: `${host}/${item.id}`,
       description: mdToHtml(item.content),
       date: new Date(item.updatedAt),
       ...(item.author && {
@@ -78,7 +78,7 @@ const buildFeed = (items: IRSSGetPostsData[]) => {
         category: [
           {
             name: item.category?.name,
-            domain: host + '/blog/category/' + item.category?.id,
+            domain: host + '/category/' + item.category?.id,
             term: item.category?.name,
           },
         ],
