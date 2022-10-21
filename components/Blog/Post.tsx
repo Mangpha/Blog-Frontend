@@ -32,7 +32,7 @@ const Post: NextPage<Partial<FindPostByIdQuery_findPostById_post>> = ({ title, c
           <MarkDownView content={content} />
         </div>
       </div>
-      <hr className="h-px bg-gray-300 border-0 dark:bg-gray-700" />
+      <hr className="h-px bg-gray-300 border-0 dark:bg-gray-300" />
       <Comment />
     </div>
   );
