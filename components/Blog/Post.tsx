@@ -6,6 +6,7 @@ import { SEO } from '../SEO';
 import MarkDownView from './MarkDownView';
 import { mdToHtml } from '../../hooks/useMdToHtml';
 import dynamic from 'next/dynamic';
+import { TopButton } from '../TopButton';
 
 const Comment = dynamic(() => import('./Comments'), { ssr: false });
 
@@ -15,6 +16,7 @@ const Post: NextPage<Partial<FindPostByIdQuery_findPostById_post>> = ({ title, c
   return (
     <div className="container_small pt-[10vw] h-full min-h-screen">
       <SEO title={title} description={mdToHtml(content)} />
+      <TopButton />
       <div className="w-full px-10 flex flex-col pb-10">
         <div className="mb-5">
           <span className="cursor-pointer text-3xl px-2 py-1 hover:text-sky-400 hover:dark:text-sky-300 transition-colors" onClick={() => router.back()}>

@@ -6,7 +6,6 @@ import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import { client } from '../apollo';
 import { Header } from '../components/Header';
-import { TopButton } from '../components/TopButton';
 import './global.css';
 import 'nprogress/nprogress.css';
 import './app.css';
@@ -55,7 +54,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Script src="https://kit.fontawesome.com/7e5e711513.js" crossOrigin="anonymous"></Script>
       <ApolloProvider client={client}>
         <Header />
-        <TopButton />
         <Component {...pageProps} />
         <Footer />
       </ApolloProvider>

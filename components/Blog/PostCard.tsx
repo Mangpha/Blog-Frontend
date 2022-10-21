@@ -17,7 +17,7 @@ const PostCard: NextPage<IPostCardProps> = ({ category, title, createdAt, id }) 
           {category?.id ? (
             <>
               <i className="fa-solid fa-tag text-yellow-400 dark:text-yellow-300 mr-3"></i>
-              <Link href={`/blog/category/${category?.id}`}>
+              <Link href={`/category/${category?.id}`}>
                 <a className="hover:text-violet-300 dark:hover:text-gray-200 transition-colors">{category.name}</a>
               </Link>
             </>
@@ -28,7 +28,7 @@ const PostCard: NextPage<IPostCardProps> = ({ category, title, createdAt, id }) 
         <div className="p-6 h-36">
           <div className="text-xl break-words">{title}</div>
         </div>
-        <Link href={`/blog/${id}`}>
+        <Link href={`/${id}`}>
           <div className="inline-flex justify-center rounded-md border border-transparent hover:cursor-pointer mb-5 bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
             Read More
           </div>
