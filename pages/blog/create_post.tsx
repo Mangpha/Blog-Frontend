@@ -25,7 +25,9 @@ const CreatePost = () => {
   const [uploading, setUploading] = React.useState<boolean>(false);
   const [preview, setPreview] = React.useState<boolean>(false);
   useEffect(() => {
-    if (!checkAdmin.admin) router.push('/blog');
+    if (!checkAdmin.admin) {
+      router.push('/');
+    }
   }, []);
   const {
     getValues,

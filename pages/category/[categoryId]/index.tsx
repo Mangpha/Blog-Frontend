@@ -2,15 +2,15 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { useState } from 'react';
-import { client } from '../../../../apollo';
-import { Category } from '../../../../components/Blog/Category';
-import { CategoryPostsList } from '../../../../components/Blog/CategoryPostsList';
-import { Pagination } from '../../../../components/Blog/Pagination';
-import { Loading } from '../../../../components/Loading';
-import { SEO } from '../../../../components/SEO';
-import { FIND_ALL_CATEGORY_QUERY, FIND_POSTS_BY_CATEGORY_QUERY } from '../../../api/gql';
-import { FindAllCategoryQuery } from '../../../api/__graphql__/FindAllCategoryQuery';
-import { FindPostsByCategoryQuery, FindPostsByCategoryQueryVariables } from '../../../api/__graphql__/FindPostsByCategoryQuery';
+import { client } from '../../../apollo';
+import { Category } from '../../../components/Blog/Category';
+import { CategoryPostsList } from '../../../components/Blog/CategoryPostsList';
+import { Pagination } from '../../../components/Blog/Pagination';
+import { Loading } from '../../../components/Loading';
+import { SEO } from '../../../components/SEO';
+import { FIND_ALL_CATEGORY_QUERY, FIND_POSTS_BY_CATEGORY_QUERY } from '../../api/gql';
+import { FindAllCategoryQuery } from '../../api/__graphql__/FindAllCategoryQuery';
+import { FindPostsByCategoryQuery, FindPostsByCategoryQueryVariables } from '../../api/__graphql__/FindPostsByCategoryQuery';
 
 interface IParams extends ParsedUrlQuery {
   categoryId: string;
@@ -72,7 +72,13 @@ const CategoryPosts = ({ postData, categoryData }: { postData: FindPostsByCatego
     <div className="min-h-screen">
       <SEO title="Blog" />
       <div className="pt-[7vw] w-full justify-center container_small">
-        <div className="text-2xl">Search Category: {categoryData?.findAllCategories.categories?.find((category) => category.id === Number(categoryId))?.name}</div>
+        <div className="text-2xl">
+          <span className="cursor-pointer text-3xl px-2 py-1 mr-5 hover:text-sky-400 hover:dark:text-sky-300 transition-colors" onClick={() => router.back()}>
+            &larr;
+          </span>
+          Search Category: {categoryData?.findAllCategories.categories?.find((category) => category.id === Number(categoryId))?.name}
+        </div>
+
         {categoryData && <Category data={categoryData} selectId={Number(categoryId)} />}
         <div className="flex flex-col col-span-6 mr-5">
           <CategoryPostsList data={postData} />

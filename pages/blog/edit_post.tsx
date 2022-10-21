@@ -59,7 +59,7 @@ const EditPost = () => {
     ],
     onCompleted: () => {
       alert('Edited Post');
-      router.push('/blog');
+      router.push('/admin');
     },
   });
 
@@ -111,7 +111,7 @@ const EditPost = () => {
   };
 
   React.useEffect(() => {
-    if (!checkAdmin.admin) router.push('/blog');
+    if (!checkAdmin.admin) router.push('/');
     if (postData && !postData?.findPostById.post) {
       alert('Error');
       router.back();

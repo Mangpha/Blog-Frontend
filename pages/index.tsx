@@ -1,39 +1,39 @@
-import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { Intro } from '../components/Home/Intro';
-import { Portfolio } from '../components/Home/Project';
+import { useQuery } from '@apollo/client';
+import React from 'react';
+import { Category } from '../components/Blog/Category';
+import { Pagination } from '../components/Blog/Pagination';
+import PostsList from '../components/Blog/PostsList';
 import { SEO } from '../components/SEO';
-import 'animate.css/animate.min.css';
-import Lecent from '../components/Home/Lecent';
-import { client } from '../apollo';
+import { FIND_ALL_CATEGORY_QUERY, FIND_POSTS_QUERY } from './api/gql';
+import { FindAllCategoryQuery } from './api/__graphql__/FindAllCategoryQuery';
 import { FindPostsQuery, FindPostsQueryVariables } from './api/__graphql__/FindPostsQuery';
-import { FIND_POSTS_QUERY } from './api/gql';
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { data: postCache } = await client.query<FindPostsQuery, FindPostsQueryVariables>({
-    query: FIND_POSTS_QUERY,
+const Blog = () => {
+  const [page, setPage] = React.useState<number>(1);
+  const onNext = () => setPage(() => page + 1);
+  const onPrev = () => setPage(() => page - 1);
+  const { data: postData } = useQuery<FindPostsQuery, FindPostsQueryVariables>(FIND_POSTS_QUERY, {
     variables: {
       input: {
-        page: 1,
+        page,
+        take: 9,
       },
     },
   });
+  const { data: categoryData } = useQuery<FindAllCategoryQuery>(FIND_ALL_CATEGORY_QUERY);
 
-  return {
-    props: {
-      postCache,
-    },
-  };
-};
-
-const Home = ({ postCache }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <div>
-      <SEO title="Home" description="Mangpha Dev Blog" />
-      <Intro />
-      <Portfolio />
-      <Lecent data={postCache} />
+    <div className="h-full min-h-screen">
+      <SEO title="Mangpha Dev Blog" />
+      <div className="pt-[7vw] w-full justify-center container_small">
+        {categoryData && <Category data={categoryData} />}
+        <div className="flex flex-col col-span-6 mr-5">
+          <PostsList data={postData} />
+          <Pagination page={page} onNext={onNext} onPrev={onPrev} totalPages={postData?.findAllPosts.totalPages} />
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Home;
+export default Blog;
