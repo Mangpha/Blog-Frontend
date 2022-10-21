@@ -40,6 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
+        <meta name="naver-site-verification" content="6acaa2e1a07881f1d9e1fcb93fc2135a1e9f13dd" />
       </Head>
       <Script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADS_CLIENT}`} crossOrigin="anonymous" />
       <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG}`} strategy="afterInteractive" />
