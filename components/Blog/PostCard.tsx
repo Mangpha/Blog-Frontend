@@ -13,11 +13,14 @@ const PostCard: NextPage<IPostCardProps> = ({ category, title, createdAt, id }) 
   return (
     <div className="flex justify-center">
       <div className="block rounded-lg shadow-lg text-center w-full">
-        <div className="py-3 px-6 border-b border-gray-300 text-gray-500">
+        <div className="py-3 px-6 border-b border-gray-300 text-gray-500 dark:text-gray-300">
           {category?.id ? (
-            <Link href={`/blog/category/${category?.id}`}>
-              <a>{category.name}</a>
-            </Link>
+            <>
+              <i className="fa-solid fa-tag text-yellow-400 dark:text-yellow-300 mr-3"></i>
+              <Link href={`/blog/category/${category?.id}`}>
+                <a className="hover:text-violet-300 dark:hover:text-gray-200 transition-colors">{category.name}</a>
+              </Link>
+            </>
           ) : (
             '-'
           )}
@@ -30,7 +33,9 @@ const PostCard: NextPage<IPostCardProps> = ({ category, title, createdAt, id }) 
             Read More
           </div>
         </Link>
-        <div className="py-3 px-6 border-t border-gray-300 text-gray-500">{createdAt}</div>
+        <div className="py-3 px-6 border-t border-gray-300 text-gray-500 dark:text-gray-300">
+          <i className="fa-solid fa-calendar text-yellow-400 dark:text-yellow-300"></i> {createdAt}
+        </div>
       </div>
     </div>
   );

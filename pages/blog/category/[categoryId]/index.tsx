@@ -72,7 +72,13 @@ const CategoryPosts = ({ postData, categoryData }: { postData: FindPostsByCatego
     <div className="min-h-screen">
       <SEO title="Blog" />
       <div className="pt-[7vw] w-full justify-center container_small">
-        <div className="text-2xl">Search Category: {categoryData?.findAllCategories.categories?.find((category) => category.id === Number(categoryId))?.name}</div>
+        <div className="text-2xl">
+          <span className="cursor-pointer text-3xl px-2 py-1 mr-5 hover:text-sky-400 hover:dark:text-sky-300 transition-colors" onClick={() => router.back()}>
+            &larr;
+          </span>
+          Search Category: {categoryData?.findAllCategories.categories?.find((category) => category.id === Number(categoryId))?.name}
+        </div>
+
         {categoryData && <Category data={categoryData} selectId={Number(categoryId)} />}
         <div className="flex flex-col col-span-6 mr-5">
           <CategoryPostsList data={postData} />
