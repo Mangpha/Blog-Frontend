@@ -16,7 +16,7 @@ const Blog = () => {
     variables: {
       input: {
         page,
-        take: 9,
+        take: 6,
       },
     },
   });

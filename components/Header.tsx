@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import React from 'react';
+import Search from './Search';
 
 const Switcher = dynamic(() => import('./Switcher'), { ssr: false });
 
@@ -25,7 +26,7 @@ export const Header = () => {
             </svg>
           </Link>
           <div className="flex justify-between items-center">
-            <i className="fa-solid fa-magnifying-glass header_text text-2xl hover:cursor-pointer"></i>
+            <Search />
             {HeaderList.map(([title, url]) => (
               <Link href={url} key={title}>
                 <a className="header_text link link-underline link-underline-black pb-2">{title}</a>

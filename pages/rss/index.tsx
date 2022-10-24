@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Feed } from 'feed';
 import { GetServerSideProps } from 'next';
-import { mdToHtml } from '../hooks/useMdToHtml';
-import { FindPostsQuery_findAllPosts_posts } from './api/__graphql__/FindPostsQuery';
+import { mdToHtml } from '../../hooks/useMdToHtml';
+import { FindPostsQuery_findAllPosts_posts } from '../api/__graphql__/FindPostsQuery';
 
 interface IRSSGetPostsData extends FindPostsQuery_findAllPosts_posts {
   updatedAt: Date;
@@ -41,7 +41,7 @@ const getAllPosts = async () => {
     });
 };
 
-const host = 'https://mangpha.dev';
+const host = 'https://mangpha.dev/';
 
 const buildFeed = (items: IRSSGetPostsData[]) => {
   const date = new Date();
@@ -57,12 +57,14 @@ const buildFeed = (items: IRSSGetPostsData[]) => {
       name: 'Mangpha',
       link: host,
     },
+    language: 'ko',
+    ttl: 100,
   });
 
   items.forEach((item) => {
     feed.addItem({
       title: item.title,
-      link: `${host}/${item.id}`,
+      link: `${host}${item.id}`,
       description: mdToHtml(item.content),
       date: new Date(item.updatedAt),
       ...(item.author && {
@@ -78,7 +80,7 @@ const buildFeed = (items: IRSSGetPostsData[]) => {
         category: [
           {
             name: item.category?.name,
-            domain: host + '/category/' + item.category?.id,
+            domain: host + 'category/' + item.category?.id,
             term: item.category?.name,
           },
         ],
@@ -93,7 +95,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (ctx && ctx.res) {
     const { res } = ctx;
     const articles = await getAllPosts();
-    console.log(articles);
     const feed = buildFeed(articles);
     res.setHeader('content-type', 'text/xml');
     res.write(feed.rss2());

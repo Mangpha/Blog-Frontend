@@ -1,10 +1,12 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { FindPostsQuery_findAllPosts_posts_category } from '../../pages/api/__graphql__/FindPostsQuery';
 
 interface IPostCardProps {
   id: number;
-  category: FindPostsQuery_findAllPosts_posts_category | null;
+  category: {
+    id: number;
+    name: string;
+  } | null;
   title: string;
   createdAt: string;
 }
