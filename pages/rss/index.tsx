@@ -95,7 +95,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (ctx && ctx.res) {
     const { res } = ctx;
     const articles = await getAllPosts();
-    console.log(articles);
     const feed = buildFeed(articles);
     res.setHeader('content-type', 'text/xml');
     res.write(feed.rss2());
