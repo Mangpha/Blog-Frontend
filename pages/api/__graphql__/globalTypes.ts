@@ -62,6 +62,11 @@ export interface FindPostByIdInput {
   id: number;
 }
 
+export interface FindPostByTitleInput {
+  page?: number | null;
+  query: string;
+}
+
 export interface LoginInput {
   password: string;
   email: string;

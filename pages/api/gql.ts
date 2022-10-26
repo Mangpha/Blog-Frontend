@@ -150,3 +150,22 @@ export const DELETE_CATEGORY_MUTATION = gql`
     }
   }
 `;
+
+export const FIND_POSTS_BY_TITLE = gql`
+  query FindPostsByTitleQuery($input: FindPostByTitleInput!) {
+    findPostByTitle(input: $input) {
+      success
+      error
+      posts {
+        id
+        createdAt
+        title
+        content
+        category {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
